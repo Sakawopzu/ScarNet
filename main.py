@@ -57,7 +57,7 @@ countie = 2
 for _ in range(targetcount):
     cashamount = randint(100000,1999999)
     formatted_cashamount = "${:,.2f}".format(cashamount)
-    targetlist.append(Panel(f"[white]{countie}.[/white] [green]{fake_mult.name()}[/green] - [white]{fake.job()}[/white]\n[red]{fake.address()}[/red]\n[yellow]{formatted_cashamount}[/yellow]", style="bold red"))
+    targetlist.append(Panel(f"[white]{countie}.[/white] [green]{fake_mult.name()}[/green] — [white]{fake.job()}[/white]\n[red]{fake.address()}[/red]\n[yellow]{formatted_cashamount}[/yellow]", style="bold red"))
     countie += 1
 
 
