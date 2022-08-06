@@ -6,9 +6,7 @@ from time import sleep
 import os
 from rich.prompt import IntPrompt
 from rich.prompt import Prompt
-from rich.prompt import IntPrompt
 from faker import Faker
-from faker.providers import internet
 from faker.providers import person
 from random import randint
 
@@ -20,6 +18,9 @@ def clear():
         command = 'cls'
     os.system(command)
 clear()
+
+if os.path.exists("lockdown_code.txt"):
+    os.remove("lockdown_code.txt")
 
 services={
     "service_1" : True,
@@ -55,7 +56,7 @@ targetlist = []
 targetcount = randint(3,16)
 countie = 2
 for _ in range(targetcount):
-    cashamount = randint(100000,1999999)
+    cashamount = randint(5000, 100000)
     formatted_cashamount = "${:,.2f}".format(cashamount)
     targetlist.append(Panel(f"[white]{countie}.[/white] [green]{fake_mult.name()}[/green] — [white]{fake.job()}[/white]\n[red]{fake.address()}[/red]\n[yellow]{formatted_cashamount}[/yellow]", style="bold red"))
     countie += 1
@@ -70,7 +71,7 @@ def start():
     
     clear()
     print()
-    con.print(banner,"Scarlet's Network.\n",style="bold red",highlight=False)
+    con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
     for i in services:
         if services[i] == True:
             con.print(f"{i}: [green]online[/green].")
@@ -79,8 +80,27 @@ def start():
             con.print(f"{i}: [red]offline[/red].")
             servicecolors[i] = "bold red"
 
+    if service1_lockdown == True:
+        servicespanels = Group(
+        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",style=servicecolors["service_1"]),
+        Panel("[white]2.[/white] Settings",style="bold yellow"),
+        )
+        con.print(f"\n[red]Lockdown:[/red] [green]ON[/green]",style="bold red", justify="center")
+        con.print(Panel(servicespanels),style="on red")
+        def askInt():
+            answer = IntPrompt.ask("(Selected Service)",choices=['1','2'])
+            if answer == 1:
+                if services["service_1"] == True:
+                    service1()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 2:
+                settings()
 
-    servicespanels = Group(
+        askInt()
+    else:
+        servicespanels = Group(
         Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",style=servicecolors["service_1"]),
         Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
@@ -88,60 +108,60 @@ def start():
         Panel("[yellow]5.[/yellow] Wi-Fi Br3ach",style=servicecolors["service_5"]),
         Panel("[yellow]6.[/yellow] List of Targets",style=servicecolors["service_6"]),
         Panel("[white]7.[/white] Settings",style="bold yellow"),
-    )
-    con.print(Panel(servicespanels),style="bold green")
+        )
+        con.print(Panel(servicespanels),style="bold green")
+        def askInt():
+            answer = IntPrompt.ask("(Selected Service)",choices=['1','2','3','4','5','6','7'])
+            if answer == 1:
+                if services["service_1"] == True:
+                    service1()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 2:
+                if services["service_2"] == True:
+                    con.print("[green]Service is online.[/green]")
+                    askInt()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 3:
+                if services["service_3"] == True:
+                    con.print("[green]Service is online.[/green]")
+                    askInt()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 4:
+                if services["service_4"] == True:
+                    con.print("[green]Service is online.[/green]")
+                    askInt()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 5:
+                if services["service_5"] == True:
+                    con.print("[green]Service is online.[/green]")
+                    askInt()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 6:
+                if services["service_6"] == True:
+                    service6()
+                else:
+                    con.print("[red]Service is offline.[/red]")
+                    askInt()
+            elif answer == 7:
+                settings()
+        askInt()
 
-    def askInt():
-        answer = IntPrompt.ask("(Selected Service)",choices=['1','2','3','4','5','6','7'])
-        if answer == 1:
-            if services["service_1"] == True:
-                service1()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 2:
-            if services["service_2"] == True:
-                con.print("[green]Service is online.[/green]")
-                askInt()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 3:
-            if services["service_3"] == True:
-                con.print("[green]Service is online.[/green]")
-                askInt()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 4:
-            if services["service_4"] == True:
-                con.print("[green]Service is online.[/green]")
-                askInt()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 5:
-            if services["service_5"] == True:
-                con.print("[green]Service is online.[/green]")
-                askInt()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 6:
-            if services["service_6"] == True:
-                service6()
-            else:
-                con.print("[red]Service is offline.[/red]")
-                askInt()
-        elif answer == 7:
-            settings()
-            start()
-    askInt()
+
 
 def settings():
     clear()
     print()
-    con.print(banner,"Scarlet's Network.\n",style="bold red",highlight=False)
+    con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
     for i in services:
         if services[i] == True:
             servicecolors[i] = "bold green"
@@ -152,7 +172,7 @@ def settings():
     con.print("Simply type the service's order number and hit enter.\n",style="bold green", justify="center")
     con.print("SETTINGS",style="black on yellow blink", justify="center")
     servicespanels = Group(
-        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",style=servicecolors["service_1"]),
+        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",title="[red]Cannot disable if on lockdown![/red]",style=servicecolors["service_1"]),
         Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
         Panel("[yellow]4.[/yellow] Brute Force Kit",style=servicecolors["service_4"]),
@@ -165,8 +185,11 @@ def settings():
     answer = IntPrompt.ask("(Selected Service)",choices=['1','2','3','4','5','6','7'])
 
     if answer == 1:
-        services["service_1"] = not services["service_1"]
-        settings()
+        if service1_lockdown == True:
+            settings()
+        else:
+            services["service_1"] = not services["service_1"]
+            settings()
     elif answer == 2:
         services["service_2"] = not services["service_2"]
         settings()
@@ -175,7 +198,7 @@ def settings():
         settings()
     elif answer == 4:
         services["service_4"] = not services["service_4"]
-        settings()
+        settings() #usa____
     elif answer == 5:
         services["service_5"] = not services["service_5"]
         settings()
@@ -188,13 +211,19 @@ def settings():
 def service1():
     clear()
     print()
-    con.print(banner,"Scarlet's Network.\n",style="bold red",highlight=False)
+    con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
     print("\n\n\n\n")
     con.print("LOCKDOWN TOGGLE",style="white on red blink", justify="center")
 
     if service1_lockdown == True:
         lockdown_color = "bold green"
         lockdown_message = "[white]2. [blink]LOCKDOWN[/white] ENABLED[/blink]"
+        lockdown_code = randint(1000,9999)
+        lockdown_code = str(lockdown_code)
+        codebanner = pyfiglet.figlet_format(lockdown_code,font="top_duck")
+        f = open("lockdown_code.txt", "w")
+        f.write("LOCKDOWN UNLOCK CODE: \n\n" + codebanner)
+        f.close()
     else:
         lockdown_color = "bold red"
         lockdown_message = "[white]2. LOCKDOWN[/white] DISABLED"
@@ -212,15 +241,26 @@ def service1():
         if answer == 1:
             start()
         elif answer == 2:
-            service1_lockdown = not service1_lockdown
-            service1()
+            if service1_lockdown == True:
+                answer = Prompt.ask("[red]Enter lockdown unlock code[/red]")
+                if answer == lockdown_code:
+                    service1_lockdown = False
+                    f = open("lockdown_code.txt", "w")
+                    f.write("LOCKDOWN UNLOCK CODE: \n\n" + pyfiglet.figlet_format("OFF",font="top_duck"))
+                    f.close()
+                    service1()
+                else:
+                    service1()
+            else:
+                service1_lockdown = not service1_lockdown
+                service1()
 
     askInt()
 
 def service6():
     clear()
     print()
-    con.print(banner,"Scarlet's Network.\n",style="bold red",highlight=False)
+    con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
     print("\n")
     con.print("Here is your HITLIST. You can do contracts here.",style="bold cyan", justify="center")
     con.print("This list refreshes periodically.\n",style="bold green", justify="center")
@@ -228,10 +268,6 @@ def service6():
 
     options = Group(
         Panel("[black]1.[/black] Back",style="bold black on yellow"),
-        # Panel("[white]2.[/white] John Doe\nSt Avenue Street",style="bold green"),
-        # Panel("[white]2.[/white] Mike Oxlong\nYr Mom Street 69",style="bold green"),
-        # Panel("[white]2.[/white] Joe Mama\nJ. M. Street",style="bold green"),
-        # Panel("[white]2.[/white] Ligma Balls\nMeme Avenue",style="bold green"),
         *targetlist
     )
     con.print(Panel(options),style="bold green")
