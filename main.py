@@ -124,28 +124,28 @@ def start():
                     askInt()
             elif answer == 2:
                 if services["service_2"] == True:
-                    con.print("[green]Service is online.[/green]")
+                    con.print("[green]Service is [white]online[/white] but currently unavailable.[/green]")
                     askInt()
                 else:
                     con.print("[red]Service is offline.[/red]")
                     askInt()
             elif answer == 3:
                 if services["service_3"] == True:
-                    con.print("[green]Service is online.[/green]")
+                    con.print("[green]Service is [white]online[/white] but currently unavailable.[/green]")
                     askInt()
                 else:
                     con.print("[red]Service is offline.[/red]")
                     askInt()
             elif answer == 4:
                 if services["service_4"] == True:
-                    con.print("[green]Service is online.[/green]")
+                    con.print("[green]Service is [white]online[/white] but currently unavailable.[/green]")
                     askInt()
                 else:
                     con.print("[red]Service is offline.[/red]")
                     askInt()
             elif answer == 5:
                 if services["service_5"] == True:
-                    con.print("[green]Service is online.[/green]")
+                    con.print("[green]Service is [white]online[/white] but currently unavailable.[/green]")
                     askInt()
                 else:
                     con.print("[red]Service is offline.[/red]")
@@ -213,7 +213,6 @@ def settings():
         settings()
     elif answer == 7:
         start()
-
 
 ##################################################
 ##############     SERVICE 1      ################
