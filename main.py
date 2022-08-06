@@ -67,6 +67,10 @@ con = Console()
 banner = pyfiglet.figlet_format(" ScarNet",font="fender") # extra font choices: banner3-D and nancyj-fancy
 
 
+##################################################
+##############       START        ################
+##################################################
+
 def start():
     
     clear()
@@ -82,7 +86,7 @@ def start():
 
     if service1_lockdown == True:
         servicespanels = Group(
-        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",style=servicecolors["service_1"]),
+        Panel("[yellow]1.[/yellow] Manage [white]Lockdown[/white] on network.",style=servicecolors["service_1"]),
         Panel("[white]2.[/white] Settings",style="bold yellow"),
         )
         con.print(f"\n[red]Lockdown:[/red] [green]ON[/green]",style="bold red", justify="center")
@@ -101,7 +105,7 @@ def start():
         askInt()
     else:
         servicespanels = Group(
-        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",style=servicecolors["service_1"]),
+        Panel("[yellow]1.[/yellow] Manage [red]Lockdown[/red] on network.",style=servicecolors["service_1"]),
         Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
         Panel("[yellow]4.[/yellow] Brute Force Kit",style=servicecolors["service_4"]),
@@ -156,7 +160,9 @@ def start():
                 settings()
         askInt()
 
-
+##################################################
+##############      SETTINGS      ################
+##################################################
 
 def settings():
     clear()
@@ -172,7 +178,7 @@ def settings():
     con.print("Simply type the service's order number and hit enter.\n",style="bold green", justify="center")
     con.print("SETTINGS",style="black on yellow blink", justify="center")
     servicespanels = Group(
-        Panel("[yellow]1.[/yellow] Initiate Lockdown on network.",title="[red]Cannot disable if on lockdown![/red]",style=servicecolors["service_1"]),
+        Panel("[yellow]1.[/yellow] Manage [red]Lockdown[/red] on network.",title="[red]Cannot disable if on lockdown![/red]",style=servicecolors["service_1"]),
         Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
         Panel("[yellow]4.[/yellow] Brute Force Kit",style=servicecolors["service_4"]),
@@ -208,21 +214,29 @@ def settings():
     elif answer == 7:
         start()
 
+
+##################################################
+##############     SERVICE 1      ################
+##################################################
+
 def service1():
     clear()
     print()
     con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
-    print("\n\n\n\n")
+    print()
+    con.print("This is the toggle for [underline]LOCKDOWN[/underline].",style="bold cyan", justify="center")
+    con.print("If on, all other services will be unusable.",style="bold red", justify="center")
+    con.print("To disable the lockdown\nyou will need to enter a special code.\n",style="bold white", justify="center")
     con.print("LOCKDOWN TOGGLE",style="white on red blink", justify="center")
 
     if service1_lockdown == True:
         lockdown_color = "bold green"
-        lockdown_message = "[white]2. [blink]LOCKDOWN[/white] ENABLED[/blink]"
+        lockdown_message = "[white]2. [blink]LOCKDOWN[/white] ENABLED[/blink] [yellow](Unlock code is stored in [white]lockdown_code.txt[/white])[/yellow]"
         lockdown_code = randint(1000,9999)
         lockdown_code = str(lockdown_code)
         codebanner = pyfiglet.figlet_format(lockdown_code,font="top_duck")
         f = open("lockdown_code.txt", "w")
-        f.write("LOCKDOWN UNLOCK CODE: \n\n" + codebanner)
+        f.write("LOCKDOWN UNLOCK CODE: \n\n" + codebanner + "Use this code to unlock the lockdown.\nEvery failed code attempt resets this code.\nIf that happens, reopen this file.")
         f.close()
     else:
         lockdown_color = "bold red"
@@ -246,7 +260,7 @@ def service1():
                 if answer == lockdown_code:
                     service1_lockdown = False
                     f = open("lockdown_code.txt", "w")
-                    f.write("LOCKDOWN UNLOCK CODE: \n\n" + pyfiglet.figlet_format("OFF",font="top_duck"))
+                    f.write("LOCKDOWN UNLOCK CODE: \n\n" + pyfiglet.figlet_format("OFF",font="big") + "There is no code for you to use right now.") # extra font: top_duck
                     f.close()
                     service1()
                 else:
@@ -256,6 +270,10 @@ def service1():
                 service1()
 
     askInt()
+
+##################################################
+##############     SERVICE 6      ################
+##################################################
 
 def service6():
     clear()
