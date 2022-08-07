@@ -4,11 +4,18 @@ from rich.console import Group
 from rich.panel import Panel
 from time import sleep
 import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 from rich.prompt import IntPrompt
 from rich.prompt import Prompt
 from faker import Faker
 from faker.providers import person
 from random import randint
+import pygame
+
+pygame.init()
+pygame.mixer.init()
+# pygame.mixer.music.load("audioname") 
+# pygame.mixer.music.play()
 
 fake_mult = Faker(["en_US", "lv_LV", "ja_JP", "es_MX", "ru_RU", "et_EE", "lt_LT"])
 fake = Faker("en_US")
@@ -106,7 +113,7 @@ def start():
     else:
         servicespanels = Group(
         Panel("[yellow]1.[/yellow] Manage [red]Lockdown[/red] on network.",style=servicecolors["service_1"]),
-        Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
+        Panel("[yellow]2.[/yellow] EXPOSE [red]ScarNet[/red] SECRETS.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
         Panel("[yellow]4.[/yellow] Brute Force Kit",style=servicecolors["service_4"]),
         Panel("[yellow]5.[/yellow] Wi-Fi Br3ach",style=servicecolors["service_5"]),
@@ -124,8 +131,7 @@ def start():
                     askInt()
             elif answer == 2:
                 if services["service_2"] == True:
-                    con.print("[green]Service is [white]online[/white] but currently unavailable.[/green]")
-                    askInt()
+                    service2()
                 else:
                     con.print("[red]Service is offline.[/red]")
                     askInt()
@@ -271,6 +277,42 @@ def service1():
     askInt()
 
 ##################################################
+##############     SERVICE 2      ################
+##################################################
+
+def service2():
+    clear()
+    print()
+    con.print(banner,"Scarlet Network.\n",style="bold red",highlight=False)
+    print()
+    con.print("SENDER: [red]Unknown[/red]", justify="center")
+    con.print("TIME: [yellow]Now[/yellow]", justify="center")
+    print()
+    con.print("NOW PLAYING: [green]A kind message[/green]",style="blink", justify="center")
+
+    pygame.mixer.music.load("assets/audio.wav") 
+    pygame.mixer.music.play()
+    sleep(23.3)
+    options = Group(
+        Panel("[black]1.[/black] Back",style="bold black on yellow"),
+    )
+    
+    con.print(Panel(options),style="bold red")
+
+    def askInt():
+        global service1_lockdown
+        answer = IntPrompt.ask("(Selected Option)",choices=['1'])
+
+        if answer == 1:
+            start()
+        elif answer == 2:
+            service1_lockdown = not service1_lockdown
+            service1()
+
+    askInt()
+
+
+##################################################
 ##############     SERVICE 6      ################
 ##################################################
 
@@ -295,9 +337,6 @@ def service6():
 
         if answer == 1:
             start()
-        elif answer == 2:
-            service1_lockdown = not service1_lockdown
-            service1()
 
     askInt()
 
