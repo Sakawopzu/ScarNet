@@ -19,6 +19,7 @@ pygame.mixer.init()
 
 fake_mult = Faker(["en_US", "lv_LV", "ja_JP", "es_MX", "ru_RU", "et_EE", "lt_LT"])
 fake = Faker("en_US")
+
 def clear():
     command = 'clear'
     if os.name in ('nt', 'dos'):
@@ -185,7 +186,7 @@ def settings():
     con.print("SETTINGS",style="black on yellow blink", justify="center")
     servicespanels = Group(
         Panel("[yellow]1.[/yellow] Manage [red]Lockdown[/red] on network.",title="[red]Cannot disable if on lockdown![/red]",style=servicecolors["service_1"]),
-        Panel("[yellow]2.[/yellow] Inject SPY_Wasp on target computer.",style=servicecolors["service_2"]),
+        Panel("[yellow]2.[/yellow] EXPOSE [red]ScarNet[/red] SECRETS.",style=servicecolors["service_2"]),
         Panel("[yellow]3.[/yellow] Social Engineering Kit",style=servicecolors["service_3"]),
         Panel("[yellow]4.[/yellow] Brute Force Kit",style=servicecolors["service_4"]),
         Panel("[yellow]5.[/yellow] Wi-Fi Br3ach",style=servicecolors["service_5"]),
@@ -291,8 +292,31 @@ def service2():
     con.print("NOW PLAYING: [green]A kind message[/green]",style="blink", justify="center")
 
     pygame.mixer.music.load("assets/audio.wav") 
+    sleep(1)
     pygame.mixer.music.play()
-    sleep(23.3)
+    sleep(0.5)
+    con.print("\n[yellow]TRANSCRIPT:[/yellow]")
+    print("\nRight, I'll tell you what, you fat little ****,")
+    sleep(2.3)
+    print("You're borin', you don't sound Nigerian at all,")
+    sleep(3.2)
+    print("So.. go **** yourself...")
+    sleep(2)
+    print("GO ******* CRAWL IN A DIRTY, DANK LITTLE HOLE")
+    sleep(2.7)
+    print("WHERE YOU ******* COME FROM")
+    sleep(1.45)
+    print("YOU DIRTY ****** *****' LITTLE ******* SPASTIC")
+    sleep(4.3)
+    print("\nRight, OK, the 'dragon' comment")
+    sleep(1.5)
+    print("was probably a little bit ******* over-the-top")
+    sleep(2.6)
+    print("but at the end of the day")
+    sleep(0.9)
+    print("You're ******* borin'.\n")
+    sleep(1.5)
+
     options = Group(
         Panel("[black]1.[/black] Back",style="bold black on yellow"),
     )
@@ -305,9 +329,6 @@ def service2():
 
         if answer == 1:
             start()
-        elif answer == 2:
-            service1_lockdown = not service1_lockdown
-            service1()
 
     askInt()
 
