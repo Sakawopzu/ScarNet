@@ -5,8 +5,13 @@ from rich.panel import Panel
 from time import sleep
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+from mnemonic import Mnemonic
+mnemo = Mnemonic("english")
 from rich.prompt import IntPrompt
 from rich.prompt import Prompt
+from rich.table import Table
+from rich import box
+from rich.align import Align
 from faker import Faker
 from faker.providers import person
 from random import randint
@@ -61,13 +66,24 @@ service1_lockdown = False
 
 # Service 6 list of targets generator.
 targetlist = []
+moneyamounts = []
+targetaddresses = []
+occupations = []
+
 targetcount = randint(3,16)
-countie = 2
+countie = 1
 for _ in range(targetcount):
     cashamount = randint(5000, 100000)
+    fullname = fake_mult.name()
+    targetaddress = fake.address()
+    occupation = fake.job()
     formatted_cashamount = "${:,.2f}".format(cashamount)
-    targetlist.append(Panel(f"[white]{countie}.[/white] [green]{fake_mult.name()}[/green] — [white]{fake.job()}[/white]\n[red]{fake.address()}[/red]\n[yellow]{formatted_cashamount}[/yellow]", style="bold red"))
+    targetlist.append(fullname)
+    moneyamounts.append(formatted_cashamount)
+    targetaddresses.append(targetaddress)
+    occupations.append(occupation)
     countie += 1
+
 
 
 # Set console and make banner with Pyfiglet
@@ -348,9 +364,21 @@ def service6():
 
     options = Group(
         Panel("[black]1.[/black] Back",style="bold black on yellow"),
-        *targetlist
     )
     con.print(Panel(options),style="bold green")
+
+    targettable = Table(title="Targets", show_lines=True, box=box.SQUARE, style="bold red")
+
+
+    targettable.add_column("Name", style="bold red", no_wrap=True, justify="right")
+    targettable.add_column("Money", style="bold green", no_wrap=True, justify="right")
+    targettable.add_column("Address", style="bold blue", no_wrap=True, justify="right")
+    targettable.add_column("Occupation", style="bold magenta", no_wrap=True, justify="right")
+
+    for i in range(targetcount):
+        targettable.add_row(targetlist[i], moneyamounts[i], targetaddresses[i], occupations[i])
+
+    con.print(targettable)
 
     def askInt():
         global service1_lockdown
