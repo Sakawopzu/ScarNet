@@ -32,6 +32,11 @@ def clear():
     os.system(command)
 clear()
 
+# RESIZE TERMINAL SO THE TUI FITS THE WINDOW.
+os.system('mode con: cols=100 lines=60')
+
+
+
 if os.path.exists("lockdown_code.txt"):
     os.remove("lockdown_code.txt")
 
@@ -85,7 +90,7 @@ for _ in range(targetcount):
     countie += 1
 
 
-
+clear()
 # Set console and make banner with Pyfiglet
 con = Console()
 banner = pyfiglet.figlet_format(" ScarNet",font="fender") # extra font choices: banner3-D and nancyj-fancy
